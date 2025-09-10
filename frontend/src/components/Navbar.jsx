@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
+import logo from '../assets/logo.png'; // ✅ Place logo inside src/assets/
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -9,7 +10,6 @@ export default function Navbar() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    // Close admin menu when main menu is toggled
     if (isAdminMenuOpen) setIsAdminMenuOpen(false);
   };
 
@@ -28,54 +28,61 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           {/* Logo and mobile menu button */}
           <div className="flex items-center">
-            <Link 
-              to="/" 
-              className="flex-shrink-0 flex items-center"
+            <Link
+              to="/"
+              className="flex-shrink-0 flex items-center space-x-2"
               onClick={closeAllMenus}
             >
-              <span className="text-2xl font-bold text-blue-600">TourGuide</span>
+              <img
+                src={logo}
+                alt="UK Tours Logo"
+                className="h-10 w-auto"
+              />
+              <span className="text-2xl font-bold text-blue-600 hidden sm:block">
+                UK Tours
+              </span>
             </Link>
-            
+
             {/* Desktop navigation */}
             <div className="hidden md:ml-6 md:flex md:items-center md:space-x-1">
-              <NavLink 
-                to="/tours" 
-                className={({isActive}) => 
+              <NavLink
+                to="/tours"
+                className={({ isActive }) =>
                   `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    isActive 
-                      ? 'bg-blue-100 text-blue-700' 
+                    isActive
+                      ? 'bg-blue-100 text-blue-700'
                       : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                   }`
                 }
               >
                 Tours
               </NavLink>
-              <NavLink 
-                to="/contact" 
-                className={({isActive}) => 
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
                   `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    isActive 
-                      ? 'bg-blue-100 text-blue-700' 
+                    isActive
+                      ? 'bg-blue-100 text-blue-700'
                       : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                   }`
                 }
               >
                 Contact
               </NavLink>
-              <NavLink 
-                to="/about" 
-                className={({isActive}) => 
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
                   `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    isActive 
-                      ? 'bg-blue-100 text-blue-700' 
+                    isActive
+                      ? 'bg-blue-100 text-blue-700'
                       : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                   }`
                 }
               >
                 About
               </NavLink>
-              
-              {/* Admin links dropdown for desktop */}
+
+              {/* Admin dropdown */}
               {user?.role === 'admin' && (
                 <div className="relative">
                   <button
@@ -87,54 +94,43 @@ export default function Navbar() {
                     }`}
                   >
                     <span>Admin</span>
-                    <svg 
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${isAdminMenuOpen ? 'rotate-180' : ''}`} 
-                      fill="none" 
-                      viewBox="0 0 24 24" 
+                    <svg
+                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${
+                        isAdminMenuOpen ? 'rotate-180' : ''
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
                       stroke="currentColor"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
                     </svg>
                   </button>
-                  
+
                   {isAdminMenuOpen && (
                     <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="py-1">
                         <NavLink
                           to="/admin/tours"
-                          className={({isActive}) => 
-                            `block px-4 py-2 text-sm transition-colors duration-200 ${
-                              isActive 
-                                ? 'bg-blue-100 text-blue-700' 
-                                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                            }`
-                          }
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           onClick={closeAllMenus}
                         >
                           Manage Tours
                         </NavLink>
                         <NavLink
                           to="/admin/bookings"
-                          className={({isActive}) => 
-                            `block px-4 py-2 text-sm transition-colors duration-200 ${
-                              isActive 
-                                ? 'bg-blue-100 text-blue-700' 
-                                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                            }`
-                          }
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           onClick={closeAllMenus}
                         >
                           Bookings
                         </NavLink>
                         <NavLink
                           to="/admin/media"
-                          className={({isActive}) => 
-                            `block px-4 py-2 text-sm transition-colors duration-200 ${
-                              isActive 
-                                ? 'bg-blue-100 text-blue-700' 
-                                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                            }`
-                          }
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           onClick={closeAllMenus}
                         >
                           Home Media
@@ -151,20 +147,20 @@ export default function Navbar() {
           <div className="hidden md:flex md:items-center md:space-x-2">
             {!user ? (
               <>
-                <NavLink 
-                  to="/login" 
-                  className={({isActive}) => 
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
                     `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                      isActive 
-                        ? 'bg-blue-100 text-blue-700' 
+                      isActive
+                        ? 'bg-blue-100 text-blue-700'
                         : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     }`
                   }
                 >
                   Login
                 </NavLink>
-                <NavLink 
-                  to="/register" 
+                <NavLink
+                  to="/register"
                   className="px-4 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-sm"
                 >
                   Register
@@ -175,8 +171,8 @@ export default function Navbar() {
                 <span className="text-sm text-gray-700">
                   Welcome, {user.name || user.email}
                 </span>
-                <button 
-                  onClick={logout} 
+                <button
+                  onClick={logout}
                   className="px-4 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200"
                 >
                   Logout
@@ -190,16 +186,36 @@ export default function Navbar() {
             <button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
-              aria-expanded="false"
             >
-              <span className="sr-only">Open main menu</span>
               {!isMenuOpen ? (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="block h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               ) : (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="block h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               )}
             </button>
@@ -213,45 +229,26 @@ export default function Navbar() {
           <div className="px-2 pt-2 pb-3 space-y-1">
             <NavLink
               to="/tours"
-              className={({isActive}) => 
-                `block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                  isActive 
-                    ? 'bg-blue-100 text-blue-700' 
-                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                }`
-              }
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
               onClick={closeAllMenus}
             >
               Tours
             </NavLink>
             <NavLink
               to="/contact"
-              className={({isActive}) => 
-                `block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                  isActive 
-                    ? 'bg-blue-100 text-blue-700' 
-                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                }`
-              }
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
               onClick={closeAllMenus}
             >
               Contact
             </NavLink>
             <NavLink
               to="/about"
-              className={({isActive}) => 
-                `block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                  isActive 
-                    ? 'bg-blue-100 text-blue-700' 
-                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                }`
-              }
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
               onClick={closeAllMenus}
             >
               About
             </NavLink>
-            
-            {/* Admin links for mobile */}
+
             {user?.role === 'admin' && (
               <>
                 <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
@@ -259,66 +256,41 @@ export default function Navbar() {
                 </div>
                 <NavLink
                   to="/admin/tours"
-                  className={({isActive}) => 
-                    `block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                      isActive 
-                        ? 'bg-blue-100 text-blue-700' 
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                    }`
-                  }
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
                   onClick={closeAllMenus}
                 >
                   Manage Tours
                 </NavLink>
                 <NavLink
                   to="/admin/bookings"
-                  className={({isActive}) => 
-                    `block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                      isActive 
-                        ? 'bg-blue-100 text-blue-700' 
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                    }`
-                  }
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
                   onClick={closeAllMenus}
                 >
                   Bookings
                 </NavLink>
                 <NavLink
                   to="/admin/media"
-                  className={({isActive}) => 
-                    `block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                      isActive 
-                        ? 'bg-blue-100 text-blue-700' 
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                    }`
-                  }
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
                   onClick={closeAllMenus}
                 >
                   Home Media
                 </NavLink>
               </>
             )}
-            
-            {/* Auth buttons for mobile */}
+
             <div className="pt-4 pb-2 border-t border-gray-200">
               {!user ? (
                 <>
                   <NavLink
                     to="/login"
-                    className={({isActive}) => 
-                      `block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 mb-2 ${
-                        isActive 
-                          ? 'bg-blue-100 text-blue-700' 
-                          : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                      }`
-                    }
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 mb-2"
                     onClick={closeAllMenus}
                   >
                     Login
                   </NavLink>
                   <NavLink
                     to="/register"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200 shadow-sm text-center"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-white bg-blue-600 hover:bg-blue-700 text-center shadow-sm"
                     onClick={closeAllMenus}
                   >
                     Register
@@ -327,14 +299,17 @@ export default function Navbar() {
               ) : (
                 <>
                   <div className="px-3 py-2 text-sm text-gray-500">
-                    Signed in as <span className="font-medium text-gray-700">{user.name || user.email}</span>
+                    Signed in as{' '}
+                    <span className="font-medium text-gray-700">
+                      {user.name || user.email}
+                    </span>
                   </div>
                   <button
                     onClick={() => {
                       logout();
                       closeAllMenus();
                     }}
-                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
                   >
                     Logout
                   </button>
