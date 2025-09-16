@@ -14,13 +14,16 @@ import AdminBookings from './pages/AdminBookings.jsx';
 import AdminMedia from './pages/AdminMedia.jsx';
 import Contact from './pages/Contact.jsx';
 import About from './pages/About.jsx';
+import FeedbackForm from './pages/FeedbackForm.jsx';
+import FeedbackList from './pages/FeedbackList.jsx';
 
-export default function App(){
+export default function App() {
   return (
     <AuthProvider>
       <Navbar />
       <div className="max-w-6xl mx-auto p-4">
         <Routes>
+          {/* Public pages */}
           <Route path="/" element={<Home />} />
           <Route path="/tours" element={<Tours />} />
           <Route path="/tours/:id" element={<TourDetails />} />
@@ -28,10 +31,41 @@ export default function App(){
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/feedbackForm" element={<FeedbackForm />} />
 
-          <Route path="/admin/tours" element={<ProtectedRoute role="admin"><AdminTours/></ProtectedRoute>} />
-          <Route path="/admin/bookings" element={<ProtectedRoute role="admin"><AdminBookings/></ProtectedRoute>} />
-          <Route path="/admin/media" element={<ProtectedRoute role="admin"><AdminMedia/></ProtectedRoute>} />
+          {/* Admin pages */}
+          <Route
+            path="/admin/tours"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminTours />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/bookings"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminBookings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/media"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminMedia />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/feedback"
+            element={
+              <ProtectedRoute role="admin">
+                <FeedbackList />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </AuthProvider>

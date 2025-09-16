@@ -10,7 +10,7 @@ import tourRoutes from "./routes/tour.routes.js";
 import bookingRoutes from "./routes/booking.routes.js";
 import mediaRoutes from "./routes/media.routes.js";
 import { v2 as cloudinary } from "cloudinary";
-
+import feedbackRoutes from "./routes/feedback.js";
 dotenv.config();
 const app = express();
 
@@ -61,7 +61,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/tours", tourRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/media", mediaRoutes);
-
+app.use("/api/feedback", feedbackRoutes);
 // ✅ Start server
 const start = async () => {
   try {

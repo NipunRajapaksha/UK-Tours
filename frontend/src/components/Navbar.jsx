@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import logo from '../assets/logo.png'; // ✅ Place logo inside src/assets/
+import logo from '../assets/logo.png';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -26,24 +26,20 @@ export default function Navbar() {
     <nav className="bg-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          {/* Logo and mobile menu button */}
+          {/* Logo */}
           <div className="flex items-center">
             <Link
               to="/"
               className="flex-shrink-0 flex items-center space-x-2"
               onClick={closeAllMenus}
             >
-              <img
-                src={logo}
-                alt="UK Tours Logo"
-                className="h-10 w-auto"
-              />
+              <img src={logo} alt="UK Tours Logo" className="h-10 w-auto" />
               <span className="text-2xl font-bold text-blue-600 hidden sm:block">
                 UK Tours
               </span>
             </Link>
 
-            {/* Desktop navigation */}
+            {/* Desktop nav */}
             <div className="hidden md:ml-6 md:flex md:items-center md:space-x-1">
               <NavLink
                 to="/tours"
@@ -56,6 +52,18 @@ export default function Navbar() {
                 }
               >
                 Tours
+              </NavLink>
+              <NavLink
+                to="/feedback"
+                className={({ isActive }) =>
+                  `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                    isActive
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                  }`
+                }
+              >
+                Feedback
               </NavLink>
               <NavLink
                 to="/contact"
@@ -135,6 +143,13 @@ export default function Navbar() {
                         >
                           Home Media
                         </NavLink>
+                        <NavLink
+                          to="/admin/feedback"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          onClick={closeAllMenus}
+                        >
+                          Feedback
+                        </NavLink>
                       </div>
                     </div>
                   )}
@@ -143,7 +158,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Desktop auth buttons */}
+          {/* Desktop auth */}
           <div className="hidden md:flex md:items-center md:space-x-2">
             {!user ? (
               <>
@@ -195,12 +210,7 @@ export default function Navbar() {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               ) : (
                 <svg
@@ -210,12 +220,7 @@ export default function Navbar() {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               )}
             </button>
@@ -223,7 +228,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile nav */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-2 pt-2 pb-3 space-y-1">
@@ -233,6 +238,13 @@ export default function Navbar() {
               onClick={closeAllMenus}
             >
               Tours
+            </NavLink>
+            <NavLink
+              to="/FeedbackForm"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
+              onClick={closeAllMenus}
+            >
+              Feedback
             </NavLink>
             <NavLink
               to="/contact"
@@ -274,6 +286,13 @@ export default function Navbar() {
                   onClick={closeAllMenus}
                 >
                   Home Media
+                </NavLink>
+                <NavLink
+                  to="/admin/feedback"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100"
+                  onClick={closeAllMenus}
+                >
+                  Feedback
                 </NavLink>
               </>
             )}
